@@ -42,7 +42,7 @@ const createRecipeObject = function (data) {
 export const loadRecipe = async function (id) {
   try {
     //await for the promise & store the resolved value into the data
-    const data = await AJAX(`${API_URL}${id}`);
+    const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
     state.recipe = createRecipeObject(data);
     //if there is alreay a recipe with the same ID in the bookmark state
     if (state.bookmarks.some((bookmark) => bookmark.id == id)) {
@@ -60,7 +60,7 @@ export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
     //Get query results from rest api based on user search query
-    const { data } = await AJAX(`${API_URL}?search=${query}`);
+    const { data } = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
     //Store the search results data into the big state
     state.search.results = data.recipes.map((recipe) => {
       //Return a new object
